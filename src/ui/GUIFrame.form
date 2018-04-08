@@ -87,19 +87,21 @@
                               <Component id="jLabel3" alignment="0" min="-2" pref="122" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="nConsumersSpinner" max="32767" attributes="0"/>
-                              <Component id="bufferTextField" max="32767" attributes="0"/>
-                              <Component id="nProducersSpinner" max="32767" attributes="0"/>
-                              <Component id="jLabel4" max="32767" attributes="0"/>
-                              <Component id="jTextField4" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="nConsumersSpinner" max="32767" attributes="0"/>
+                                  <Component id="bufferTextField" max="32767" attributes="0"/>
+                                  <Component id="nProducersSpinner" max="32767" attributes="0"/>
+                                  <Component id="jLabel4" pref="86" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="lowerValueSpinner" min="-2" pref="109" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel5" max="32767" attributes="0"/>
                               <Component id="producerWaitTimeTextField" alignment="0" max="32767" attributes="0"/>
                               <Component id="consumerWaitTimeTextField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jSpinner3" min="-2" pref="109" max="-2" attributes="0"/>
+                              <Component id="upperValueSpinner" min="-2" pref="109" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="52" max="32767" attributes="0"/>
                       </Group>
@@ -135,8 +137,8 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSpinner3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="upperValueSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lowerValueSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="42" max="32767" attributes="0"/>
                       </Group>
@@ -160,9 +162,7 @@
                     <Property name="text" type="java.lang.String" value="Rango de Valores (n, m)"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField4">
-                </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner3">
+                <Component class="javax.swing.JSpinner" name="upperValueSpinner">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
@@ -187,6 +187,8 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cantidad"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="lowerValueSpinner">
                 </Component>
               </SubComponents>
             </Container>
@@ -217,7 +219,7 @@
                           <Component id="jLabel8" pref="185" max="32767" attributes="0"/>
                           <Component id="processedOperationsSpinner" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <EmptySpace pref="87" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
