@@ -14,12 +14,10 @@ import sexp.Symbol;
  */
 public class Division extends Operator {
     
-    static {
-        operator = '/';
-        identity = 1;
-    }
-    
-    public Division(Symbol l, Symbol r) { super(l, r); }
+    public Division(Symbol l, Symbol r) { super(l, r, '/'); }
+    public Division(double l, double r) { super(l, r, '/'); }
+    public Division(double l, Symbol r) { super(l, r, '/'); }
+    public Division(Symbol l, double r) { super(l, r, '/'); }
     
     @Override
     public double eval() {

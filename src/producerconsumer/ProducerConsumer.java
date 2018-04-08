@@ -1,5 +1,11 @@
 package producerconsumer;
 
+import sexp.SNumber;
+import sexp.Symbol;
+import sexp.operators.Difference;
+import sexp.operators.Multiplication;
+import sexp.operators.Sum;
+
 public final class ProducerConsumer {
     
     private ProducerConsumer() {
@@ -53,12 +59,12 @@ public final class ProducerConsumer {
         }
     }
     
-    public void main(String ...args) {
-        int bufferSize = 10;
+    public static void main(String ...args) {
+        int bufferSize = 1;
         int consumerWaitTime = 1000;
         int producerWaitTime = 1000;
-        int nConsumers = 3;
-        int nProducers = 2;
+        int nConsumers = 1;
+        int nProducers = 1;
         init(bufferSize, consumerWaitTime, producerWaitTime, nConsumers, nProducers);
         start();
     }

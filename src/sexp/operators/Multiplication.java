@@ -14,12 +14,10 @@ import sexp.Symbol;
  */
 public class Multiplication extends Operator {
     
-    static {
-        operator = '*';
-        identity = 1;
-    }
-    
-    public Multiplication(Symbol l, Symbol r) { super(l, r); }
+    public Multiplication(Symbol l, Symbol r) { super(l, r, '*'); }
+    public Multiplication(double l, double r) { super(l, r, '*'); }
+    public Multiplication(double l, Symbol r) { super(l, r, '*'); }
+    public Multiplication(Symbol l, double r) { super(l, r, '*'); }
     
     @Override
     public double eval() {

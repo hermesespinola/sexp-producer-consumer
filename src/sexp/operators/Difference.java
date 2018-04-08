@@ -13,14 +13,13 @@ import sexp.Symbol;
  * @author hermes.espinola
  */
 public class Difference extends Operator {
-
-    static {
-        operator = '-';
-        identity = 0;
-    }
     
-    public Difference(Symbol l) { super(l, null); }
-    public Difference(Symbol l, Symbol r) { super(l, r); }
+    public Difference(Symbol l) { super(l, '-'); }
+    public Difference(Symbol l, Symbol r) { super(l, r, '-'); }
+    public Difference(double l) { super(l, '-'); }
+    public Difference(double l, double r) { super(l, r, '-'); }
+    public Difference(double l, Symbol r) { super(l, r, '-'); }
+    public Difference(Symbol l, double r) { super(l, r, '-'); }
     
     @Override
     public double eval() {

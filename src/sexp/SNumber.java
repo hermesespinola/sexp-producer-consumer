@@ -9,10 +9,10 @@ package sexp;
  *
  * @author hermes.espinola
  */
-public class Number implements Symbol {
+public class SNumber implements Symbol {
 
     double value;
-    Number(double value) {
+    public SNumber(double value) {
         this.value = value;
     }
     
