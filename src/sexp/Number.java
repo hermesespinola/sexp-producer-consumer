@@ -20,5 +20,9 @@ public class Number implements Symbol {
     public double eval() {
         return this.value;
     }
-    
+ 
+    @Override
+    public String toString() {
+        return Double.toString(this.value);
+    }
 }

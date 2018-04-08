@@ -11,4 +11,7 @@ package sexp;
  */
 public interface Symbol {
     public double eval();
+
+    @Override
+    public String toString();
 }
