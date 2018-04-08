@@ -10,5 +10,5 @@ package sexp;
  * @author hermes.espinola
  */
 public interface Symbol {
-    
+    public double eval();
 }

@@ -9,6 +9,16 @@ package sexp;
  *
  * @author hermes.espinola
  */
-public class Number {
+public class Number implements Symbol {
+
+    double value;
+    Number(double value) {
+        this.value = value;
+    }
+    
+    @Override
+    public double eval() {
+        return this.value;
+    }
     
 }
