@@ -2,9 +2,10 @@ package producerconsumer;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sexp.Symbol;
 
 public class Consumer extends Thread {
-    Buffer buffer;
+    Buffer<Symbol> buffer;
     private final int waitTime;
     private int nProducts;
     
@@ -21,11 +22,11 @@ public class Consumer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Consumer (" + this.nProducts + ")...");
-        char product;
+        Symbol product;
 
         for(int i = 0; i < this.nProducts; i++) {
             product = this.buffer.consume();
-            Buffer.print("Consumer consumed: " + product);
+            Buffer.print("Consumer evaluated: " + product.eval());
 
             try {
                 Thread.sleep(waitTime);

@@ -4,9 +4,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class Buffer {
+public class Buffer<T> {
     
-    private final LinkedBlockingQueue<Character> buffer;
+    private final LinkedBlockingQueue<T> buffer;
     private final int bufferMaxSize, producerWaitTime;
     private int bufferSize;
     
@@ -17,18 +17,18 @@ public class Buffer {
         this.bufferSize = 0;
     }
     
-    char consume() {
-        char product;
+    T consume() {
+        T product;
         try {
             product = this.buffer.take();
         } catch (InterruptedException e) {
             Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
-            product = 0;
+            product = null;
         }
         return product;
     }
     
-    void produce(char product) {
+    void produce(T product) {
         if (bufferSize < bufferMaxSize) {
             this.buffer.add(product);
             bufferSize += 1;
