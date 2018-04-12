@@ -23,6 +23,6 @@ public class SNumber implements Symbol {
  
     @Override
     public String toString() {
-        return Double.toString(this.value);
+        return Integer.toString((int)this.value);
     }
 }
