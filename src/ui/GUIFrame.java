@@ -81,9 +81,15 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Rango de Valores (n, m)");
 
+        upperValueSpinner.setValue(1);
+
         jLabel1.setText("Productores");
 
         jLabel2.setText("Consumidores");
+
+        nProducersSpinner.setValue(1);
+
+        nConsumersSpinner.setValue(1);
 
         jLabel3.setText("Tamaño del Buffer");
 
@@ -205,8 +211,6 @@ public class GUIFrame extends javax.swing.JFrame {
         jLabel7.setText("Tareas por hacer");
 
         jLabel8.setText("Tareas realizadas");
-
-        progressBar.setValue(50);
 
         processedOperationsSpinner.setEnabled(false);
         processedOperationsSpinner.setFocusable(false);
