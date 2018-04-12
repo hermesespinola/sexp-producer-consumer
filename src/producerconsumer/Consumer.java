@@ -28,7 +28,7 @@ public class Consumer extends Thread {
     }
 
     @Override
-    public void run() {
+    synchronized public void run() {
         System.out.println("Running Consumer (" + this.nProducts + ")...");
         Symbol product;
 

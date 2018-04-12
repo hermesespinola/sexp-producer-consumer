@@ -320,12 +320,30 @@ public class GUIFrame extends javax.swing.JFrame {
             
 // Update 'Procesos' interface
             ProducerConsumer.addTaskAddedListener((s) -> {
-                optsTable.addRow(new Object[] { s.toString() });
+                synchronized(optsTable) {
+                    optsTable.addRow(new Object[] { s.toString() });
+                }
             });
             ProducerConsumer.addTaskFinishListener((pair) -> {
-                resTable.addRow(new Object[] { pair.getKey(), pair.getValue() });
-                processedOptsSpinner.setValue((int) processedOptsSpinner.getValue() + 1);
-                progressBar.setValue(progressBar.getValue() + 1);
+                synchronized(resTable) {
+                    resTable.addRow(new Object[] { pair.getKey(), pair.getValue() });
+                }
+                synchronized(processedOptsSpinner) {
+                    processedOptsSpinner.setValue((int) processedOptsSpinner.getValue() + 1);
+                }
+                synchronized(frame.startButton) {
+                    progressBar.setValue(progressBar.getValue() + 1);
+                    int bSize;
+                    try {
+                        bSize = Integer.parseInt(frame.bufferTextField.getText());
+                    } catch (NumberFormatException ex) {
+                        bSize = 0;
+                    }
+                    
+                    if (progressBar.getValue() >= bSize) {
+                        frame.startButton.setEnabled(true);
+                    }
+                }
             });
             
             frame.startButton.addActionListener((ActionEvent e) -> {
@@ -334,11 +352,12 @@ public class GUIFrame extends javax.swing.JFrame {
                 optsTable.setRowCount(0);
                 resTable.setRowCount(0);
                 progressBar.setValue(0);
+                frame.startButton.setEnabled(false);
                 frame.processedOperationsSpinner.setValue(0);
                 /* Start ProducerConsumer */
                 int bufferSize;
                 try {
-                 bufferSize = Integer.parseInt(frame.bufferTextField.getText());   
+                 bufferSize = Integer.parseInt(frame.bufferTextField.getText());
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(frame, "Please enter valid value for buffer size", "Buffer size error", WARNING_MESSAGE);
                     return;
@@ -352,6 +371,11 @@ public class GUIFrame extends javax.swing.JFrame {
                     producerWaitTime = Integer.parseInt(frame.producerWaitTimeTextField.getText());
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(frame, "Please enter valid wait times", "Consumer/Producer wait time error", WARNING_MESSAGE);
+                    return;
+                }
+                
+                if (consumerWaitTime < 0 || producerWaitTime < 0) {
+                    JOptionPane.showMessageDialog(frame, "wait time must be greater or equal to 0", "Buffer Size error", WARNING_MESSAGE);
                     return;
                 }
                                 
