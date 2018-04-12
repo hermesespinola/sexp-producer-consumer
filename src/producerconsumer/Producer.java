@@ -12,13 +12,20 @@ public class Producer extends Thread {
     private final int waitTime, min, max;
     private int nProducts;
     private Random r;
+    private boolean running = true;
+    static java.util.function.Consumer<Symbol> taskAddedListener;
 
-    Producer(Buffer<Symbol> buffer, int waitTime, int nProducts, int minVal, int maxVal) {
+    Producer(Buffer<Symbol> buffer, int waitTime, int nProducts, int minVal, int maxVal, java.util.function.Consumer<Symbol> taskAddedListener) {
         this.buffer = buffer;
         this.waitTime = waitTime;
         this.nProducts = nProducts;
         this.min = minVal;
         this.max = maxVal;
+        this.taskAddedListener = taskAddedListener;
+    }
+    
+    public void terminate() {
+        this.running = false;
     }
     
     public void setNProducts(int val) {
@@ -41,7 +48,8 @@ public class Producer extends Thread {
                     return new SNumber(this.min + r.nextInt(this.max));
             }
         } else {
-            return new SNumber(this.min + r.nextInt(this.max));
+            int next = this.min + r.nextInt(this.max - this.min);
+            return new SNumber(next == 0 ? this.max : next);
         }
     }
 
@@ -52,9 +60,13 @@ public class Producer extends Thread {
         Symbol product;
 
         for(int i = 0 ; i < nProducts; i++) {
+            if (!running) {
+                break;
+            }
             product = genRandomSexp();
             this.buffer.produce(product);
             Buffer.print("Producer produced: " + product);
+            this.taskAddedListener.accept(product);
             try {
                 Thread.sleep(this.waitTime);
             } catch (InterruptedException ex) {

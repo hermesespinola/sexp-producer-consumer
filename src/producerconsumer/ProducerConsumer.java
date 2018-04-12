@@ -1,6 +1,7 @@
 package producerconsumer;
 
 import sexp.Symbol;
+import javafx.util.Pair;
 
 public final class ProducerConsumer {
 
@@ -27,11 +28,21 @@ public final class ProducerConsumer {
         initProducers(nProducers);
         initConsumers(nConsumers);
     }
+    
+    static java.util.function.Consumer<Pair<String, Double>> taskFinishListener;
+    static java.util.function.Consumer<Symbol> taskAddedListener;
+    public static void addTaskFinishListener(java.util.function.Consumer<Pair<String, Double>> f) {
+        taskFinishListener = f;
+    }
 
-    public static void initConsumers(int nConsumers) {
+    public static void addTaskAddedListener(java.util.function.Consumer<Symbol> f) {
+        taskAddedListener = f;
+    }
+    
+    static void initConsumers(int nConsumers) {
         consumers = new Consumer[nConsumers];
         for (int i = 0; i < nConsumers; i++) {
-            consumers[i] = new Consumer(buffer, cWait, productsPerConsumer);
+            consumers[i] = new Consumer(buffer, cWait, productsPerConsumer, taskFinishListener);
         }
         int missing = size - productsPerConsumer * nConsumers;
         for (int i = 0; i < missing; i++) {
@@ -41,10 +52,10 @@ public final class ProducerConsumer {
         }
     }
 
-    public static void initProducers(int nProducers) {
+    static void initProducers(int nProducers) {
         producers = new Producer[nProducers];
         for (int i = 0; i < nProducers; i++) {
-            producers[i] = new Producer(buffer, pWait, productsPerProducer, min, max);
+            producers[i] = new Producer(buffer, pWait, productsPerProducer, min, max, taskAddedListener);
         }
         int missing = size - productsPerProducer * nProducers;
         for (int i = 0; i < missing; i++) {
@@ -54,13 +65,28 @@ public final class ProducerConsumer {
         }
     }
 
+    
+    public static void stop() {
+        if (producers != null) {
+            for (Producer producer : producers) {
+                producer.terminate();
+            }
+        }
+        
+        if (consumers != null) {
+            for (Consumer consumer : consumers) { 
+               consumer.terminate();
+            }
+        }
+    }
+    
     public static void start() {
         for (Producer producer : producers) {
             producer.start();
         }
         
-        for (Consumer consumer : consumers) {
-            consumer.start();
+        for (Consumer consumer : consumers) { 
+           consumer.start();
         }
     }
 

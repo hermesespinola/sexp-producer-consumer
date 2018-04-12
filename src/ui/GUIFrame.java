@@ -1,8 +1,11 @@
 package ui;
 
 import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
+import javax.swing.JProgressBar;
+import javax.swing.JSpinner;
+import javax.swing.table.DefaultTableModel;
 import producerconsumer.ProducerConsumer;
 
 /*
@@ -56,7 +59,7 @@ public class GUIFrame extends javax.swing.JFrame {
         resultsTable = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        progressBar = new javax.swing.JProgressBar();
         processedOperationsSpinner = new javax.swing.JSpinner();
         startButton = new javax.swing.JButton();
 
@@ -64,6 +67,17 @@ public class GUIFrame extends javax.swing.JFrame {
         setResizable(false);
 
         jLabel5.setText("Tiempo de Espera (ms)");
+
+        producerWaitTimeTextField.setText("1000");
+        producerWaitTimeTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                producerWaitTimeTextFieldActionPerformed(evt);
+            }
+        });
+
+        consumerWaitTimeTextField.setText("1000");
+
+        bufferTextField.setText("10");
 
         jLabel6.setText("Rango de Valores (n, m)");
 
@@ -147,10 +161,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
         operationsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Expresión"
@@ -168,10 +179,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
         resultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Expresión", "Resultado"
@@ -198,7 +206,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel8.setText("Tareas realizadas");
 
-        jProgressBar1.setValue(50);
+        progressBar.setValue(50);
 
         processedOperationsSpinner.setEnabled(false);
         processedOperationsSpinner.setFocusable(false);
@@ -210,15 +218,15 @@ public class GUIFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(processedOperationsSpinner))
-                .addContainerGap(87, Short.MAX_VALUE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                    .addComponent(processedOperationsSpinner)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +241,7 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(processedOperationsSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -268,6 +276,10 @@ public class GUIFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void producerWaitTimeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_producerWaitTimeTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_producerWaitTimeTextFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -284,38 +296,106 @@ public class GUIFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUIFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             GUIFrame frame = new GUIFrame();
             frame.setVisible(true);
+            
+            DefaultTableModel optsTable = (DefaultTableModel) frame.operationsTable.getModel();
+            DefaultTableModel resTable = (DefaultTableModel) frame.resultsTable.getModel();
+            JSpinner processedOptsSpinner = frame.processedOperationsSpinner;
+            JProgressBar progressBar = frame.progressBar;
+            
+// Update 'Procesos' interface
+            ProducerConsumer.addTaskAddedListener((s) -> {
+                optsTable.addRow(new Object[] { s.toString() });
+            });
+            ProducerConsumer.addTaskFinishListener((pair) -> {
+                resTable.addRow(new Object[] { pair.getKey(), pair.getValue() });
+                processedOptsSpinner.setValue((int) processedOptsSpinner.getValue() + 1);
+                progressBar.setValue(progressBar.getValue() + 1);
+            });
+            
             frame.startButton.addActionListener((ActionEvent e) -> {
+                ProducerConsumer.stop();
+                // Clean interface
+                optsTable.setRowCount(0);
+                resTable.setRowCount(0);
+                progressBar.setValue(0);
+                frame.processedOperationsSpinner.setValue(0);
                 /* Start ProducerConsumer */
-                int bufferSize = Integer.parseInt(frame.bufferTextField.getText());
-                int consumerWaitTime = Integer.parseInt(frame.consumerWaitTimeTextField.getText());
-                int producerWaitTime = Integer.parseInt(frame.producerWaitTimeTextField.getText());
+                int bufferSize;
+                try {
+                 bufferSize = Integer.parseInt(frame.bufferTextField.getText());   
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Please enter valid value for buffer size", "Buffer size error", WARNING_MESSAGE);
+                    return;
+                }
+                progressBar.setMaximum(bufferSize);
+                                
+                int consumerWaitTime;
+                int producerWaitTime;
+                try {
+                    consumerWaitTime = Integer.parseInt(frame.consumerWaitTimeTextField.getText());
+                    producerWaitTime = Integer.parseInt(frame.producerWaitTimeTextField.getText());
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Please enter valid wait times", "Consumer/Producer wait time error", WARNING_MESSAGE);
+                    return;
+                }
+                                
+                if (bufferSize < 1) {
+                    JOptionPane.showMessageDialog(frame, "Buffer size should be greater than 0", "Buffer Size error", WARNING_MESSAGE);
+                    return;
+                }
+                
+                int nConsumers;
+                int nProducers;
                 try {
                     frame.nConsumersSpinner.commitEdit();
                     frame.nProducersSpinner.commitEdit();
+                    nConsumers = (Integer) frame.nConsumersSpinner.getValue();
+                    nProducers = (Integer) frame.nProducersSpinner.getValue();
+                } catch (java.text.ParseException ex) {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid number of consumers and producers", "Consumer/Producer error", WARNING_MESSAGE);
+                    return;
+                }
+                
+                if (nConsumers < 1 || nProducers < 1) {
+                    JOptionPane.showMessageDialog(frame, "There should be at least one consumer and at least one", "Consumer/Producer error", WARNING_MESSAGE);
+                    return;
+                }
+                
+                int lowerValue;
+                int upperValue;
+                
+                try {
                     frame.lowerValueSpinner.commitEdit();
                     frame.upperValueSpinner.commitEdit();
+                    lowerValue = (Integer) frame.lowerValueSpinner.getValue();
+                    upperValue = (Integer) frame.upperValueSpinner.getValue();
                 } catch (java.text.ParseException ex) {
-                    Logger.getLogger(GUIFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(frame, "Please e ter valid range values", "Value range error", WARNING_MESSAGE);
+                    return;
                 }
-                int nConsumers = (Integer) frame.nConsumersSpinner.getValue();
-                int nProducers = (Integer) frame.nProducersSpinner.getValue();
-                int lowerValue = (Integer) frame.lowerValueSpinner.getValue();
-                int upperValue = (Integer) frame.upperValueSpinner.getValue();
+                
+                if (upperValue == 0 && lowerValue == 0) {
+                    JOptionPane.showMessageDialog(frame, "n and m should not be both zero", "Value range error", WARNING_MESSAGE);
+                    return;
+                }
+                
+                if (upperValue < lowerValue) {
+                    JOptionPane.showMessageDialog(frame, "n should not be greater than m", "Value range error", WARNING_MESSAGE);
+                    return;
+                }
+                
                 ProducerConsumer.init(bufferSize, consumerWaitTime, 
                         producerWaitTime, nConsumers, nProducers, lowerValue, upperValue);
                 ProducerConsumer.start();
@@ -337,7 +417,6 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -347,6 +426,7 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JTable operationsTable;
     private javax.swing.JSpinner processedOperationsSpinner;
     private javax.swing.JTextField producerWaitTimeTextField;
+    private javax.swing.JProgressBar progressBar;
     private javax.swing.JTable resultsTable;
     private javax.swing.JButton startButton;
     private javax.swing.JSpinner upperValueSpinner;

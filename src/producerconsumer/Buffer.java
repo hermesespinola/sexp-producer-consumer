@@ -30,6 +30,7 @@ public class Buffer<T> {
     
     void produce(T product) {
         if (bufferSize < bufferMaxSize) {
+            System.out.println(bufferSize);
             this.buffer.add(product);
             bufferSize += 1;
         }
