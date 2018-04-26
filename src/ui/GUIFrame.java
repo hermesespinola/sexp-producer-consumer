@@ -331,6 +331,9 @@ public class GUIFrame extends javax.swing.JFrame {
                 synchronized(processedOptsSpinner) {
                     processedOptsSpinner.setValue((int) processedOptsSpinner.getValue() + 1);
                 }
+                synchronized(optsTable) {
+                    optsTable.removeRow(0);
+                }
                 synchronized(frame.startButton) {
                     progressBar.setValue(progressBar.getValue() + 1);
                     int bSize;
@@ -352,7 +355,6 @@ public class GUIFrame extends javax.swing.JFrame {
                 optsTable.setRowCount(0);
                 resTable.setRowCount(0);
                 progressBar.setValue(0);
-                frame.startButton.setEnabled(false);
                 frame.processedOperationsSpinner.setValue(0);
                 /* Start ProducerConsumer */
                 int bufferSize;
@@ -427,6 +429,7 @@ public class GUIFrame extends javax.swing.JFrame {
                 ProducerConsumer.init(bufferSize, consumerWaitTime, 
                         producerWaitTime, nConsumers, nProducers, lowerValue, upperValue);
                 ProducerConsumer.start();
+                frame.startButton.setEnabled(false);
             });
         });
     }
